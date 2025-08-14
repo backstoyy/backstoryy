@@ -1,0 +1,47 @@
+[
+  {
+    "question": "Which country is now the largest importer of Russian oil after China?",
+    "options": [
+      "A) United States",
+      "B) Germany",
+      "C) India"
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "The US has imposed a new tariff of what percentage on Indian goods?",
+    "options": [
+      "A) 25%",
+      "B) 50%",
+      "C) 75%"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "What is the name of the new AI model released by OpenAI?",
+    "options": [
+      "A) GPT-4",
+      "B) GPT-5",
+      "C) GPT-6"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Which country has recently joined the BRICS group?",
+    "options": [
+      "A) Argentina",
+      "B) Saudi Arabia",
+      "C) Egypt"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "What is the main focus of COP28?",
+    "options": [
+      "A) Climate change",
+      "B) Biodiversity",
+      "C) Renewable energy"
+    ],
+    "answer": "A"
+  }  
+]

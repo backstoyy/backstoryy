@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article | BackStoryy</title>
+
+    <!-- Icon -->
+    <link rel="icon" type="image/svg+xml" href="backstoryy.png">
+
+    <!-- Tailwind CSS with Typography Plugin -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- ⭐🔷 ENHANCED TYPOGRAPHY SYSTEM -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Marked.js for Markdown Parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        /* --- CSS Variables for Theming --- */
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-sidebar: linear-gradient(to top, #ffffff, #f9fafb);
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --border-color: #e5e7eb;
+            --pattern-fill: #d1d5db;
+            --theme-color-main: #4b5563;
+            --theme-color-bg: #e5e7eb;
+            
+            /* Professional brand colors */
+            --brand-color-light: #115e59;
+            --brand-color-dark:  #2dd4bf;
+            --brand-color-light-rgb: 17, 94, 89;
+            --brand-color-dark-rgb: 45, 212, 191;
+
+            /* Article title colors */
+            --title-color-light: #f97316;
+            --title-color-dark:  #a3e635;
+            
+            --pulse-color-rgb: var(--brand-color-light-rgb);
+        }
+
+        .dark {
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-sidebar: linear-gradient(to top, #1f2937, #1a2431);
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+            --pattern-fill: #4b5563;
+            --theme-color-bg: #374151;
+            --pulse-color-rgb: var(--brand-color-dark-rgb);
+        }
+
+        .font-title { font-family: 'Playfair Display', serif; }
+        
+        /* ⭐🔷 ENHANCED TYPOGRAPHY SYSTEM */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='var(--pattern-fill)' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            transition: background-color 0.4s, color 0.4s;
+            overflow: hidden;
+        }
+
+        /* --- Border Glow Effect --- */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            box-shadow: inset 0 0 0 5px var(--theme-color-main);
+            transition: box-shadow 0.4s ease-in-out;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        /* --- Preloader & Header Animations --- */
+        #preloader { background-color: var(--bg-secondary); transition: opacity 0.6s ease-in-out; }
+        #preloader.hidden { opacity: 0; pointer-events: none; }
+        .preloader-logo  { animation: pop-in 0.8s ease-out forwards; }
+        .preloader-title { opacity: 0; animation: fade-in-up 0.8s 1s ease-in-out forwards; }
+        @keyframes pop-in      { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes fade-in-up  { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+
+        .main-content-wrapper        { opacity: 0; transition: opacity 0.6s ease-in-out; }
+        .main-content-wrapper.visible{ opacity: 1; }
+
+        #main-header { transition: padding 0.4s ease-in-out, box-shadow 0.4s ease-in-out; background-color: var(--bg-secondary); }
+        #main-header .header-logo,
+        #main-header .header-title  { transition: font-size 0.4s ease-in-out, color 0.4s ease-in-out; transform: translateZ(0); }
+        #main-header.shrunk {
+            padding-top: 0.5rem; padding-bottom: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .dark #main-header.shrunk {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.2);
+        }
+        #main-header.shrunk .header-logo  { font-size: 1.875rem; }
+        #main-header.shrunk .header-title { font-size: 1.25rem; }
+
+        /* --- Professional Brand Title Theming --- */
+        .brand-title { color: var(--brand-color-light); transition: color 0.4s ease-in-out; }
+        .dark .brand-title { color: var(--brand-color-dark); }
+
+        /* --- Article Title Theming --- */
+        #article-main-title { color: var(--title-color-light); }
+        .dark #article-main-title { color: var(--title-color-dark); }
+
+        /* --- Sidebar Styles --- */
+        #sidebar {
+            background-image: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            transition: width 0.4s ease-in-out, background-image 0.4s, border-color 0.4s;
+            width: 18rem;
+        }
+        .sidebar-item {
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+            transform-origin: center left;
+        }
+        .sidebar-item:not(.active):hover {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        .sidebar-item.active {
+            background-color: var(--theme-color-main);
+            color: white;
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px -3px var(--theme-color-bg);
+        }
+        .sidebar-item.active .icon { color: white !important; }
+
+        /* --- Collapsed Sidebar Styles --- */
+        #layout-wrapper.sidebar-collapsed #sidebar          { width: 6rem; }
+        #layout-wrapper.sidebar-collapsed .sidebar-item-title { display: none; }
+        #layout-wrapper.sidebar-collapsed #sidebar-nav {
+            display: flex; flex-direction: column; align-items: center;
+        }
+        #layout-wrapper.sidebar-collapsed .sidebar-item       { padding: 0.5rem; }
+        #layout-wrapper.sidebar-collapsed .sidebar-item .icon { width: 2rem; height: 2rem; }
+        #layout-wrapper.sidebar-collapsed #sidebar-nav > .sidebar-item + .sidebar-item { margin-top: 1.25rem; }
+        #layout-wrapper.sidebar-collapsed #sidebar-footer { justify-content: center; }
+        #layout-wrapper.sidebar-collapsed #collapse-btn-text { display: none; }
+
+        /* --- Dark Mode Toggle --- */
+        #theme-toggle-btn { transition: all 0.3s ease; color: var(--text-secondary); }
+        .dark #theme-toggle-btn .sun-icon  { display: block; }
+        .dark #theme-toggle-btn .moon-icon { display: none; }
+        #theme-toggle-btn .sun-icon { display: none; }
+
+        /* --- Content Animation --- */
+        @keyframes fade-slide-in { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .content-section.animate-in { animation: fade-slide-in 0.4s ease-out forwards; }
+        
+        @keyframes slide-out-up { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-40px); opacity: 0; } }
+        @keyframes slide-out-down { from { transform: translateY(0); opacity: 1; } to { transform: translateY(40px); opacity: 0; } }
+        @keyframes slide-in-up { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slide-in-down { from { transform: translateY(-40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .content-section.is-navigating-out-up { animation: slide-out-up 0.4s ease-out forwards; }
+        .content-section.is-navigating-out-down { animation: slide-out-down 0.4s ease-out forwards; }
+        .content-section.is-navigating-in-up { animation: slide-in-up 0.4s ease-out forwards; }
+        .content-section.is-navigating-in-down { animation: slide-in-down 0.4s ease-out forwards; }
+
+        /* --- Style for images in articles --- */
+        .prose img {
+            width: 75%;
+            margin-left: auto; margin-right: auto;
+            border-radius: 0.75rem;
+            margin-top: 1.5em; margin-bottom: 1.5em;
+        }
+        
+        /* --- REFINED ELASTIC SCROLL SYSTEM --- */
+        #content-area {
+            position: relative;
+            overflow: visible;
+        }
+
+        /* ⭐🔷 INVISIBLE SCROLLBAR WITH FUNCTIONALITY */
+        .elastic-content-container {
+            height: 100%;
+            overflow-y: auto;
+            transform-origin: center;
+            transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            z-index: 1;
+            
+            /* Hide scrollbar but keep functionality */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .elastic-content-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .elastic-content-container.elastic-top {
+            transform: translateY(45px) scale(0.96);
+        }
+
+        .elastic-content-container.elastic-bottom {
+            transform: translateY(-45px) scale(0.96);
+        }
+
+        /* Clean Navigation Indicators - Removed redundant arrows */
+        .nav-indicator {
+            position: absolute;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            pointer-events: none;
+            z-index: 10;
+            height: 120px;
+        }
+
+        #nav-indicator-up { 
+            top: -60px;
+            transform: translateY(-100%);
+        }
+
+        #nav-indicator-down { 
+            bottom: -60px;
+            transform: translateY(100%);
+        }
+
+        .nav-indicator.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-indicator.persistent {
+            opacity: 0.9;
+            animation: gentlePulse 4s infinite;
+        }
+
+        /* Professional Navigation Button */
+        .nav-button {
+            width: 5rem;
+            height: 5rem;
+            background: linear-gradient(135deg, var(--brand-color-light), var(--theme-color-main));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            transform: scale(0.5);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark .nav-button {
+            background: linear-gradient(135deg, var(--brand-color-dark), var(--theme-color-main));
+            color: #111827;
+            box-shadow: 0 16px 50px rgba(0,0,0,0.4);
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent);
+            transform: translateX(-100%);
+            transition: transform 1s ease;
+        }
+
+        .nav-button.charging {
+            transform: scale(0.9);
+            animation: professionalPulse 2.5s infinite;
+        }
+
+        .nav-button.charging::before {
+            transform: translateX(100%);
+        }
+
+        .nav-button.ready {
+            transform: scale(1.2);
+            box-shadow: 0 20px 60px rgba(var(--pulse-color-rgb), 0.4);
+        }
+
+        /* Enhanced Progress Ring */
+        .progress-ring {
+            position: absolute;
+            top: -8px; left: -8px; right: -8px; bottom: -8px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--brand-color-light), var(--brand-color-light));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .dark .progress-ring {
+            background: conic-gradient(from 0deg, var(--brand-color-dark), var(--brand-color-dark));
+        }
+
+        .nav-button.charging .progress-ring {
+            opacity: 1;
+        }
+
+        /* Professional Animations */
+        @keyframes professionalPulse {
+            0%, 100% { 
+                transform: scale(0.9);
+                box-shadow: 0 16px 50px rgba(var(--pulse-color-rgb), 0.15);
+            }
+            50% { 
+                transform: scale(0.95);
+                box-shadow: 0 20px 60px rgba(var(--pulse-color-rgb), 0.25);
+            }
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { 
+                opacity: 0.7;
+                transform: translateY(0) scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: translateY(0) scale(1.03);
+            }
+        }
+
+        /* Section Navigation Info - Enhanced for Better Visibility */
+        .section-nav-info {
+            position: absolute;
+            right: -280px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            pointer-events: none;
+            z-index: 15;
+            box-shadow: 0 16px 50px rgba(0,0,0,0.12);
+            min-width: 260px;
+            backdrop-filter: blur(20px);
+        }
+
+        .dark .section-nav-info {
+            box-shadow: 0 16px 50px rgba(0,0,0,0.4);
+            background: rgba(31, 41, 55, 0.95);
+        }
+
+        .section-nav-info.visible {
+            opacity: 1;
+            right: 2rem;
+        }
+
+        .section-nav-info.preview-mode {
+            opacity: 0.95;
+            right: 1.5rem;
+            transform: translateY(-50%) scale(1.02);
+        }
+
+        .nav-info-content {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .nav-info-icon-wrapper {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: var(--theme-color-main);
+            border-radius: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .section-nav-info.preview-mode .nav-info-icon-wrapper {
+            transform: scale(1.1);
+        }
+
+        .nav-info-text {
+            flex: 1;
+        }
+
+        .nav-info-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--brand-color-light);
+        }
+
+        .dark .nav-info-label {
+            color: var(--brand-color-dark);
+        }
+
+        .nav-info-title {
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text-primary);
+        }
+
+        /* User Onboarding Hint */
+        .scroll-hint {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 2rem;
+            padding: 1rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: 100;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+            pointer-events: none;
+        }
+
+        .dark .scroll-hint {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        .scroll-hint.visible {
+            opacity: 1;
+            animation: hintBounce 3s ease-in-out infinite;
+        }
+
+        @keyframes hintBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+        }
+    </style>
+</head>
+
+<body class="h-screen flex flex-col">
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 flex flex-col items-center justify-center z-50 p-4">
+        <h1 class="font-title text-7xl font-bold text-inherit text-teal-800 brand-title">BackStoryy</h1>
+        <h2 id="preloader-title" class="preloader-title mt-4 text-4xl font-semibold text-center" style="color: var(--text-secondary)"></h2>
+    </div>
+
+    <!-- Wrapper for main content -->
+    <div class="main-content-wrapper h-screen flex flex-col relative">
+        <!-- Header -->
+        <header id="main-header" class="z-40 sticky top-0 py-6">
+            <div class="max-w-7xl mx-auto px-4 relative flex justify-center items-center">
+                <div class="absolute left-4 top-1/2 -translate-y-1/2">
+                    <a href="index.html" class="font-title text-4xl font-bold text-inherit text-teal-800 header-logo brand-title">BackStoryy</a>
+                </div>
+                <div class="text-center overflow-hidden">
+                    <h2 id="article-main-title" class="text-2xl font-bold header-title whitespace-nowrap">Weekly Article</h2>
+                </div>
+                <div class="absolute right-4 top-1/2 -translate-y-1/2">
+                    <button id="theme-toggle-btn" class="p-2 rounded-full hover:bg-gray-500/10" aria-label="Toggle theme">
+                        <i data-lucide="moon" class="moon-icon"></i>
+                        <i data-lucide="sun"  class="sun-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <div id="layout-wrapper" class="flex-grow flex overflow-hidden">
+            <!-- Sidebar -->
+            <aside id="sidebar" class="h-full flex flex-col justify-between shadow-md p-4">
+                <nav id="sidebar-nav" class="p-2 md:p-4 space-y-3 mt-16">
+                    <!-- Sidebar items injected here -->
+                </nav>
+                <div id="sidebar-footer" class="p-2 flex items-center justify-end">
+                    <button id="collapse-btn" class="flex items-center gap-3 p-2 rounded-lg w-full" style="color: var(--text-secondary)">
+                        <i data-lucide="chevrons-left"></i>
+                        <span id="collapse-btn-text" class="font-semibold">Collapse</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Content Area -->
+            <main id="content-area" class="flex-grow h-full p-6 md:p-10" tabindex="0">
+                <div class="elastic-content-container h-full">
+                    <!-- Article sections injected here -->
+                </div>
+
+                <!-- Clean Navigation Indicators (No redundant arrows) -->
+                <div id="nav-indicator-up" class="nav-indicator">
+                    <div class="nav-button">
+                        <div class="progress-ring"></div>
+                        <i data-lucide="arrow-up" class="w-7 h-7 relative z-10"></i>
+                    </div>
+                </div>
+
+                <div id="nav-indicator-down" class="nav-indicator">
+                    <div class="nav-button">
+                        <div class="progress-ring"></div>
+                        <i data-lucide="arrow-down" class="w-7 h-7 relative z-10"></i>
+                    </div>
+                </div>
+
+                <!-- Enhanced Section Navigation Info -->
+                <div id="section-nav-info" class="section-nav-info">
+                    <div class="nav-info-content">
+                        <div class="nav-info-icon-wrapper">
+                            <i id="nav-info-icon" data-lucide="arrow-down" class="w-6 h-6"></i>
+                        </div>
+                        <div class="nav-info-text">
+                            <div class="nav-info-label" id="nav-info-label">Next Section</div>
+                            <div class="nav-info-title" id="nav-info-title"></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- User Onboarding Hint -->
+        <div id="scroll-hint" class="scroll-hint">
+            Scroll to preview and navigate sections ⬇️
+        </div>
+    </div>
+
+    <!-- Enhanced Script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        // ⭐ Centralized Animation & Interaction Timing Controls
+        // You can tweak these values to change the feel of the navigation.
+        const animationConfig = {
+            // Duration for the article sections to slide in/out (in milliseconds).
+            // This should match the duration in the CSS animations.
+            articleTransitionDuration: 400,
+
+            // Cooldown period after a navigation is triggered to prevent glitches from rapid clicks/scrolls.
+            navigationCooldown: 500,
+
+            // Scroll "charge" needed to show the preview of the next/previous section.
+            // Lower value means the preview appears faster.
+            previewThreshold: 40,
+
+            // Scroll "charge" needed to trigger the navigation.
+            // Lower value means less scrolling is needed to change sections.
+            navigationThreshold: 130,
+
+            // Multiplier for how quickly the scroll "charge" accumulates. Higher is faster.
+            chargeAccumulationFactor: 0.6,
+
+            // Delay before the scroll "charge" resets after the user stops scrolling (in milliseconds).
+            chargeResetDelay: 250,
+
+            // How long the navigation hint (up/down arrow) stays visible after a partial scroll (in milliseconds).
+            persistentIndicatorTimeout: 2000,
+        };
+
+        const root                = document.documentElement;
+        const mainTitleElement    = document.getElementById('article-main-title');
+        const preloaderTitle      = document.getElementById('preloader-title');
+        const preloader           = document.getElementById('preloader');
+        const mainContentWrap     = document.querySelector('.main-content-wrapper');
+        const mainHeader          = document.getElementById('main-header');
+        const contentArea         = document.getElementById('content-area');
+        const elasticContainer    = contentArea.querySelector('.elastic-content-container');
+        const sidebarNav          = document.getElementById('sidebar-nav');
+        const layoutWrapper       = document.getElementById('layout-wrapper');
+        const collapseBtn         = document.getElementById('collapse-btn');
+        const themeToggleBtn      = document.getElementById('theme-toggle-btn');
+
+        /* ---------- THEME LOGIC ---------- */
+        const applyTheme = (theme) => {
+            if (theme === 'dark')  document.documentElement.classList.add('dark');
+            else                   document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', theme);
+            lucide.createIcons();
+
+            const visibleProse = elasticContainer.querySelector('.content-section:not(.hidden) .prose');
+            if (visibleProse)  visibleProse.classList.toggle('prose-invert', document.documentElement.classList.contains('dark'));
+        };
+
+        themeToggleBtn.addEventListener('click', () => {
+            const nextTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+            applyTheme(nextTheme);
+        });
+
+        /* ---------- SECTION THEMES / ICONS ---------- */
+        const standardThemes = {
+            introduction : { main:'#0891b2', icon:'landmark' },
+            growth       : { main:'#22c55e', icon:'line-chart' },
+            achievements : { main:'#3b82f6', icon:'trophy' }
+        };
+        const dynamicThemes  = [
+            { main:'#db2777', icon:'list-checks' },
+            { main:'#F59E0B', icon:'book-open'  },
+            { main:'#65a30d', icon:'leaf'       },
+            { main:'#db2777', icon:'film'       },
+        ];
+        const defaultIcon = 'file-text';
+        let   sectionsWithThemes = [];
+
+        /* ---------- URL PARAMS ---------- */
+        const params       = new URLSearchParams(window.location.search);
+        const articleFile  = params.get('file');
+        const articleTitle = params.get('title');
+
+        if (!articleFile || !articleTitle) {
+            fatalError('Article file or title not specified in URL.');
+            return;
+        }
+
+        const decodedTitle = decodeURIComponent(articleTitle);
+        mainTitleElement.textContent = decodedTitle;
+        preloaderTitle.textContent   = decodedTitle;
+        
+        dynamicFontSize(decodedTitle);
+
+        /* ---------- INIT ---------- */
+        async function init() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            applyTheme(savedTheme);
+
+            try {
+                const markdownRaw = await (await fetch(`articles/${articleFile}`)).text();
+                const markdown = markdownRaw.replace(/(\.\.\/)?thumbnails\/([^\s'")]+)/g, './thumbnails/$2');
+                const sections = toSections(marked.lexer(markdown));
+                if (!sections.length) throw new Error('No valid content sections found.');
+
+                sectionsWithThemes = assignThemes(sections);
+                buildSidebar(sectionsWithThemes);
+                buildContent(sectionsWithThemes);
+                attachEventListeners();
+
+                const firstItem = sidebarNav.querySelector('.sidebar-item');
+                if(firstItem) {
+                    const idx = firstItem.dataset.index;
+                    const sec = sectionsWithThemes[idx];
+                    root.style.setProperty('--theme-color-main', sec.themeColor);
+                    firstItem.classList.add('active');
+                    const firstContent = document.getElementById(`content-${idx}`);
+                    firstContent.classList.remove('hidden');
+                    const firstProse = firstContent.querySelector('.prose');
+                    if (firstProse) firstProse.classList.toggle('prose-invert', document.documentElement.classList.contains('dark'));
+                    
+                    void firstContent.offsetWidth;
+                    firstContent.classList.add('animate-in');
+                }
+
+                setTimeout(() => showUserHint(), 3500);
+
+            } catch (err) {
+                fatalError(err.message);
+            }
+
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+                mainContentWrap.classList.add('visible');
+            }, 2400);
+        }
+
+        /* ---------- HELPERS ---------- */
+        function fatalError(msg) {
+            console.error(msg);
+            elasticContainer.innerHTML =
+                `<div class="text-center p-8 rounded-lg bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300">
+                    <h2 class="text-2xl font-bold">Error</h2><p class="mt-2">${msg}</p>
+                 </div>`;
+            preloader.classList.add('hidden');
+            mainContentWrap.classList.add('visible');
+        }
+
+        function toSections(tokens) {
+            const out = []; let current = null;
+            for (const t of tokens) {
+                if (t.type === 'heading' && t.depth === 1) {
+                    current = { title:t.text.trim(), content:'' };
+                    out.push(current);
+                } else if (current) current.content += t.raw;
+            }
+            return out.filter(s => s.content.trim() !== '');
+        }
+
+        function assignThemes(secs) {
+            let dynIdx = 0;
+            const kwToIcon = { reasons:'list-checks', lessons:'book-open', entertainment:'film' };
+
+            return secs.map(sec => {
+                const low = sec.title.toLowerCase();
+                let theme = null, icon = defaultIcon;
+
+                for (const k in standardThemes)
+                    if (low.includes(k)) { theme = standardThemes[k].main; icon = standardThemes[k].icon; break; }
+
+                if (!theme) {
+                    for (const k in kwToIcon)
+                        if (low.includes(k)) { icon = kwToIcon[k]; break; }
+                    theme = dynamicThemes[dynIdx].main;
+                    dynIdx = (dynIdx + 1) % dynamicThemes.length;
+                }
+                return { ...sec, themeColor:theme, icon };
+            });
+        }
+
+        function buildSidebar(secs) {
+            sidebarNav.innerHTML = secs.map((s,i) => `
+                <div class="sidebar-item flex items-center gap-4 p-3 rounded-lg cursor-pointer" data-index="${i}">
+                    <i data-lucide="${s.icon}" class="icon"></i>
+                    <h3 class="font-bold text-lg sidebar-item-title">${s.title}</h3>
+                </div>`).join('');
+        }
+
+        function buildContent(secs) {
+            elasticContainer.innerHTML = secs.map((s,i) => `
+                <article id="content-${i}" class="content-section hidden">
+                    <div class="prose prose-lg max-w-none">${marked.parse(s.content)}</div>
+                </article>`).join('');
+        }
+        
+        let isNavigating = false;
+
+        function attachEventListeners() {
+            sidebarNav.addEventListener('click', e => {
+                if (isNavigating) return;
+                const item = e.target.closest('.sidebar-item');
+                if (!item || item.classList.contains('active')) return;
+                
+                const currentActive = sidebarNav.querySelector('.sidebar-item.active');
+                const currentIndex = currentActive ? Number(currentActive.dataset.index) : -1;
+                const nextIndex = Number(item.dataset.index);
+
+                navigate(nextIndex > currentIndex ? 1 : -1, item);
+            });
+
+            collapseBtn.addEventListener('click', () => {
+                layoutWrapper.classList.toggle('sidebar-collapsed');
+                const icon = collapseBtn.querySelector('i');
+                icon.setAttribute('data-lucide',
+                    layoutWrapper.classList.contains('sidebar-collapsed') ? 'chevrons-right' : 'chevrons-left');
+                lucide.createIcons();
+            });
+
+            elasticContainer.addEventListener('scroll', () =>
+                mainHeader.classList.toggle('shrunk', elasticContainer.scrollTop > 50));
+
+            addElasticScrollNavigation();
+
+            lucide.createIcons();
+        }
+
+        function dynamicFontSize(title) {
+            const len = title.length;
+            const max = 2.25, min = 1.5, short = 10, long = 50;
+            let size  = max;
+            if (len > short) {
+                if (len >= long) size = min;
+                else size = max - ((len - short) / (long - short)) * (max - min);
+            }
+            mainTitleElement.style.fontSize = `${size}rem`;
+        }
+
+        function navigate(dir, nextItem) {
+            if (isNavigating) return;
+            isNavigating = true;
+
+            const current = elasticContainer.querySelector('.content-section:not(.hidden)');
+            if (!current || !nextItem) {
+                isNavigating = false;
+                return;
+            }
+
+            const idx = nextItem.dataset.index;
+            const sec = sectionsWithThemes[idx];
+            root.style.setProperty('--theme-color-main', sec.themeColor);
+
+            sidebarNav.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+            nextItem.classList.add('active');
+
+            const next = document.getElementById(`content-${idx}`);
+            
+            current.classList.add(dir > 0 ? 'is-navigating-out-down' : 'is-navigating-out-up');
+            
+            // This timeout waits for the "out" animation to finish
+            setTimeout(() => {
+                current.classList.add('hidden');
+                current.className = 'content-section hidden';
+
+                next.classList.remove('hidden');
+                next.classList.add(dir > 0 ? 'is-navigating-in-down' : 'is-navigating-in-up');
+                
+                elasticContainer.scrollTo({ top: 0, behavior: 'auto' });
+                
+                const prose = next?.querySelector('.prose');
+                if (prose) prose.classList.toggle('prose-invert', document.documentElement.classList.contains('dark'));
+                
+            }, animationConfig.articleTransitionDuration);
+
+            // Set a cooldown for the entire navigation process to prevent spamming
+            setTimeout(() => { isNavigating = false; }, animationConfig.navigationCooldown);
+        }
+
+        function showUserHint() {
+            const hint = document.getElementById('scroll-hint');
+            hint.classList.add('visible');
+            
+            setTimeout(() => {
+                hint.classList.remove('visible');
+            }, 10000);
+        }
+
+        function addElasticScrollNavigation() {
+            const indicatorUp = document.getElementById('nav-indicator-up');
+            const indicatorDown = document.getElementById('nav-indicator-down');
+            const buttonUp = indicatorUp.querySelector('.nav-button');
+            const buttonDown = indicatorDown.querySelector('.nav-button');
+            const sectionInfo = document.getElementById('section-nav-info');
+            const infoIcon = document.getElementById('nav-info-icon');
+            const infoLabel = document.getElementById('nav-info-label');
+            const infoTitle = document.getElementById('nav-info-title');
+            
+            let elasticState = {
+               charge: 0,
+               maxCharge: 200, // An upper limit for the charge
+               direction: 0,
+               isCharging: false,
+               isElastic: false,
+               isPreviewing: false,
+               persistentTimer: null
+            };
+
+            let resetTimeout = null;
+
+            elasticContainer.addEventListener('wheel', handleWheelEvent, { passive: false });
+
+            function handleWheelEvent(e) {
+               if (isNavigating) return;
+
+               const { scrollTop, scrollHeight, clientHeight } = elasticContainer;
+               const scrollDir = Math.sign(e.deltaY);
+               const delta = Math.abs(e.deltaY);
+
+               const activeItem = sidebarNav.querySelector('.sidebar-item.active');
+               if (!activeItem) return;
+               
+               const currentIndex = Number(activeItem.dataset.index);
+               const isFirstSection = currentIndex === 0;
+               const isLastSection = currentIndex === sectionsWithThemes.length - 1;
+
+               const isScrollable = scrollHeight > clientHeight;
+               const isAtTop = scrollTop <= 5;
+               const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
+
+               const shouldElasticUp = (scrollDir < 0 && (!isScrollable || isAtTop) && !isFirstSection);
+               const shouldElasticDown = (scrollDir > 0 && (!isScrollable || isAtBottom) && !isLastSection);
+
+               if (shouldElasticUp || shouldElasticDown) {
+                   e.preventDefault();
+                   
+                   const dir = shouldElasticUp ? -1 : 1;
+                   elasticState.direction = dir;
+                   elasticState.charge = Math.min(elasticState.maxCharge, elasticState.charge + delta * animationConfig.chargeAccumulationFactor);
+                   elasticState.isCharging = true;
+                   elasticState.isElastic = true;
+
+                   if (elasticState.charge >= animationConfig.previewThreshold && !elasticState.isPreviewing) {
+                       elasticState.isPreviewing = true;
+                       updateSectionPreview(currentIndex, dir);
+                   }
+
+                   updateElasticVisuals();
+
+                   if (elasticState.charge >= animationConfig.navigationThreshold) {
+                      const nextIndex = currentIndex + dir;
+                      const nextItem = sidebarNav.querySelector(`.sidebar-item[data-index='${nextIndex}']`);
+                      if (nextItem) {
+                          triggerNavigation(dir, nextItem);
+                          return;
+                      }
+                   }
+
+                   clearTimeout(resetTimeout);
+                   clearTimeout(elasticState.persistentTimer);
+
+                   resetTimeout = setTimeout(() => {
+                      if (elasticState.charge > animationConfig.previewThreshold) {
+                          showPersistentIndicator(dir);
+                      } else {
+                          resetElasticState(true);
+                      }
+                   }, animationConfig.chargeResetDelay);
+
+               } else {
+                   if (elasticState.isElastic) {
+                      resetElasticState(true);
+                   }
+               }
+            }
+
+            function updateElasticVisuals() {
+               const progress = Math.min(1, elasticState.charge / animationConfig.navigationThreshold);
+               const previewProgress = Math.min(1, elasticState.charge / animationConfig.previewThreshold);
+               const isUp = elasticState.direction < 0;
+               
+               const indicator = isUp ? indicatorUp : indicatorDown;
+               const button = isUp ? buttonUp : buttonDown;
+               
+               indicator.classList.add('visible');
+               indicator.classList.remove('persistent');
+               
+               button.classList.toggle('charging', elasticState.isCharging && previewProgress > 0.3);
+               button.classList.toggle('ready', progress >= 1);
+               
+               elasticContainer.classList.toggle('elastic-top', isUp && elasticState.isElastic);
+               elasticContainer.classList.toggle('elastic-bottom', !isUp && elasticState.isElastic);
+               
+               const ring = button.querySelector('.progress-ring');
+               const degree = progress * 360;
+               ring.style.background = `conic-gradient(from 0deg, ${
+                   document.documentElement.classList.contains('dark') ? 'var(--brand-color-dark)' : 'var(--brand-color-light)'
+               } ${degree}deg, transparent ${degree}deg)`;
+               
+               const scale = 0.5 + (progress * 0.7);
+               button.style.transform = `scale(${scale})`;
+            }
+
+            function updateSectionPreview(currentIndex, direction) {
+               const nextIndex = currentIndex + direction;
+               const nextSection = sectionsWithThemes[nextIndex];
+               
+               if (nextSection) {
+                   const isUp = direction < 0;
+                   infoIcon.setAttribute('data-lucide', isUp ? 'arrow-up' : 'arrow-down');
+                   infoLabel.textContent = isUp ? 'Previous Section' : 'Next Section';
+                   infoTitle.textContent = nextSection.title;
+                   
+                   sectionInfo.classList.add('visible', 'preview-mode');
+                   lucide.createIcons();
+               } else {
+                   sectionInfo.classList.remove('visible', 'preview-mode');
+               }
+            }
+
+            function showPersistentIndicator(dir) {
+               const indicator = dir < 0 ? indicatorUp : indicatorDown;
+               indicator.classList.add('persistent');
+               
+               elasticState.persistentTimer = setTimeout(() => {
+                   resetElasticState(true);
+               }, animationConfig.persistentIndicatorTimeout);
+            }
+
+            function triggerNavigation(dir, nextItem) {
+               const button = dir > 0 ? buttonDown : buttonUp;
+               button.style.transform = 'scale(1.4)';
+               button.style.transition = 'transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1)';
+               
+               setTimeout(() => {
+                   navigate(dir, nextItem);
+                   resetElasticState(false);
+               }, 100);
+            }
+
+            function resetElasticState(animate = true) {
+               if (animate) {
+                   elasticContainer.style.transition = 'transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1)';
+                   indicatorUp.style.transition = 'all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1)';
+                   indicatorDown.style.transition = 'all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1)';
+               }
+
+               elasticState.charge = 0;
+               elasticState.direction = 0;
+               elasticState.isCharging = false;
+               elasticState.isElastic = false;
+               elasticState.isPreviewing = false;
+
+               elasticContainer.classList.remove('elastic-top', 'elastic-bottom');
+               indicatorUp.classList.remove('visible', 'persistent');
+               indicatorDown.classList.remove('visible', 'persistent');
+               buttonUp.classList.remove('charging', 'ready');
+               buttonDown.classList.remove('charging', 'ready');
+               sectionInfo.classList.remove('visible', 'preview-mode');
+
+               [buttonUp, buttonDown].forEach(btn => {
+                   btn.style.transform = 'scale(0.5)';
+                   if (animate) {
+                      btn.style.transition = 'transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1)';
+                      setTimeout(() => btn.style.transition = '', 200);
+                   }
+               });
+
+               if (animate) {
+                   setTimeout(() => {
+                      elasticContainer.style.transition = '';
+                      indicatorUp.style.transition = '';
+                      indicatorDown.style.transition = '';
+                   }, 200);
+               }
+
+               clearTimeout(resetTimeout);
+               clearTimeout(elasticState.persistentTimer);
+            }
+
+            elasticContainer.addEventListener('keydown', e => {
+               const active = sidebarNav.querySelector('.sidebar-item.active');
+               if (!active || isNavigating) return;
+               const currentIndex = Number(active.dataset.index);
+
+               if (e.key === 'PageDown' || e.key === 'ArrowDown') {
+                   const nextItem = sidebarNav.querySelector(`.sidebar-item[data-index='${currentIndex + 1}']`);
+                   if(nextItem) {
+                      e.preventDefault();
+                      navigate(1, nextItem);
+                   }
+               } else if (e.key === 'PageUp' || e.key === 'ArrowUp') {
+                   const nextItem = sidebarNav.querySelector(`.sidebar-item[data-index='${currentIndex - 1}']`);
+                   if(nextItem) {
+                      e.preventDefault();
+                      navigate(-1, nextItem);
+                   }
+               }
+            });
+        }
+        
+        init();
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BackStoryy</title>
+
+    <!-- Icon -->
+    <link rel="icon" type="image/svg+xml" href="backstoryy.png">
+    <!-- Tailwind CSS for styling and responsive design -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for the title -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* --- CSS Variables for Theming --- */
+        :root {
+            --bg-primary: #f3f4f6;
+            --bg-secondary: #ffffff;
+            --bg-card: #f9fafb;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --text-tertiary: #6b7280;
+            --border-color: #e5e7eb;
+            --brand-color: #115e59; /* teal-800 */
+            --year-border: #4f46e5; /* indigo-600 */
+        }
+
+        .dark {
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-card: #374151;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-tertiary: #9ca3af;
+            --border-color: #374151;
+            --brand-color: #2dd4bf; /* teal-400 */
+            --year-border: #818cf8; /* indigo-400 */
+        }
+
+        .font-title {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.4s, color 0.4s;
+        }
+
+        /* Themed elements */
+        .themed-container { background-color: var(--bg-secondary); }
+        .themed-header-brand { color: var(--brand-color); }
+        .themed-header-subtitle { color: var(--text-secondary); }
+        .themed-border { border-color: var(--border-color); }
+        .themed-card-bg { background-color: var(--bg-card); }
+        .themed-card-title { color: var(--text-primary); }
+        .themed-year-header { color: var(--text-primary); border-color: var(--year-border); }
+        .themed-month-header { color: var(--text-secondary); }
+        .themed-loading-text { color: var(--text-tertiary); }
+        .themed-error-text { color: #b91c1c; }
+        .dark .themed-error-text { color: #f87171; }
+
+        /* --- Styles for Enhanced Content Reveal Effect --- */
+        .card-reveal .thumbnail-reveal {
+            transition: transform 0.4s ease;
+        }
+        .card-reveal:hover .thumbnail-reveal {
+            transform: scale(1.1);
+        }
+        .card-reveal .overlay {
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .card-reveal:hover .overlay {
+            opacity: 1;
+        }
+        .card-reveal .read-more {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s 0.1s ease, transform 0.4s 0.1s ease;
+        }
+        .card-reveal:hover .read-more {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Dark Mode Toggle Styles */
+        #theme-toggle-btn .sun-icon { display: none; }
+        .dark #theme-toggle-btn .sun-icon { display: block; }
+        .dark #theme-toggle-btn .moon-icon { display: none; }
+
+        /* --- Rainbow Border Button --- */
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .quiz-button-wrapper {
+            position: relative;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .quiz-button-wrapper::before {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-color: #fff;
+            background-repeat: no-repeat;
+            background-size: 50% 50%, 50% 50%;
+            background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+            background-image: linear-gradient(#8B5CF6, #8B5CF6), linear-gradient(#EC4899, #EC4899), linear-gradient(#F97316, #F97316), linear-gradient(#06B6D4, #06B6D4);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .quiz-button-wrapper:hover::before {
+            opacity: 1;
+            animation: rotate 4s linear infinite;
+        }
+        .quiz-button-wrapper span {
+             display: block;
+             background-color: var(--bg-secondary);
+             transition: background-color 0.4s;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main content container -->
+    <div class="themed-container max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 shadow-xl rounded-2xl my-8">
+        
+        <!-- Header Section -->
+        <header class="text-center mb-12 themed-border border-b pb-6 relative">
+            <h1 class="font-title text-5xl md:text-6xl font-bold themed-header-brand">BackStoryy</h1>
+            <p class="mt-2 text-lg themed-header-subtitle">A Collection of Curated Articles</p>
+            
+            <!-- Quiz Link Section -->
+            <div class="mt-8 flex justify-center items-center gap-4">
+                <p class="themed-text-secondary font-semibold">Try our new quiz!</p>
+                <a href="quiz.html" class="quiz-button-wrapper inline-block p-1 rounded-lg text-decoration-none">
+                   <span class="px-6 py-3 font-bold rounded-md themed-header-brand">Try Now &rarr;</span>
+                </a>
+            </div>
+
+            <div class="absolute top-0 right-0">
+                <button id="theme-toggle-btn" class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-gray-500/10" aria-label="Toggle theme">
+                    <i data-lucide="moon" class="moon-icon"></i>
+                    <i data-lucide="sun" class="sun-icon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Articles will be dynamically injected here -->
+        <main id="content-container" class="space-y-12">
+            <!-- Loading message -->
+            <p class="text-center themed-loading-text">Loading articles...</p>
+        </main>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- CONFIGURATION ---
+            const JSON_FILE_PATH = 'articles.json';
+
+            // --- DOM ELEMENTS ---
+            const contentContainer = document.getElementById('content-container');
+            const themeToggleBtn = document.getElementById('theme-toggle-btn');
+
+            // --- THEME LOGIC ---
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+                localStorage.setItem('theme', theme);
+                lucide.createIcons();
+            };
+
+            themeToggleBtn.addEventListener('click', () => {
+                const currentTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+                applyTheme(currentTheme);
+            });
+
+            // Apply saved theme on initial load
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            applyTheme(savedTheme);
+            // --- END THEME LOGIC ---
+
+
+            /**
+             * Creates an HTML element for a single article card.
+             * @param {object} articleObject - An object containing the article's title and file name.
+             * @returns {HTMLElement} - The anchor element representing the clickable article card.
+             */
+            function createArticleCard(articleObject) {
+                const link = document.createElement('a');
+                link.href = `article.html?file=${encodeURIComponent(articleObject.file)}&title=${encodeURIComponent(articleObject.title)}`;
+                link.className = 'card-reveal group';
+
+                const cardContent = document.createElement('div');
+                cardContent.className = 'themed-card-bg rounded-xl shadow-sm overflow-hidden flex flex-col h-full';
+
+                const thumbnailContainer = document.createElement('div');
+                thumbnailContainer.className = 'relative';
+
+                const thumbnail = document.createElement('img');
+                const baseFilename = articleObject.file.replace('.md', '');
+                thumbnail.src = `thumbnails/${baseFilename}.png`;
+                thumbnail.alt = articleObject.title;
+                thumbnail.className = 'thumbnail-reveal w-full h-48 object-cover';
+                
+                thumbnail.onerror = function() {
+                    if (this.src.endsWith('.jpeg')) {
+                        this.src = `thumbnails/${baseFilename}.jpg`;
+                        this.onerror = function() {
+                            this.onerror = null;
+                            this.src = `https://placehold.co/600x400/e2e8f0/475569?text=Not+Found`;
+                        };
+                    } else if (this.src.endsWith('.jpg')) {
+                        this.onerror = null;
+                        this.src = `https://placehold.co/600x400/e2e8f0/475569?text=Not+Found`;
+                    } else {
+                        this.src = `thumbnails/${baseFilename}.jpeg`;
+                    }
+                };
+
+                const overlay = document.createElement('div');
+                overlay.className = 'overlay absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4';
+
+                const readMoreLink = document.createElement('p');
+                readMoreLink.className = 'read-more text-white font-bold text-lg flex items-center gap-1';
+                readMoreLink.innerHTML = `Read More <span class="transition-transform group-hover:translate-x-1.5">&rarr;</span>`;
+
+                const mainTitleElement = document.createElement('h4');
+                mainTitleElement.className = 'font-semibold themed-card-title p-4 flex-grow';
+                mainTitleElement.textContent = articleObject.title;
+
+                overlay.appendChild(readMoreLink);
+                thumbnailContainer.appendChild(thumbnail);
+                thumbnailContainer.appendChild(overlay);
+                
+                cardContent.appendChild(thumbnailContainer);
+                cardContent.appendChild(mainTitleElement);
+                
+                link.appendChild(cardContent);
+
+                return link;
+            }
+
+            /**
+             * Fetches article data from the JSON file and renders it to the page.
+             */
+            async function loadAndDisplayArticles() {
+                try {
+                    const response = await fetch(JSON_FILE_PATH);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    const data = await response.json();
+
+                    contentContainer.innerHTML = '';
+
+                    data.forEach((yearData) => {
+                        const yearSection = document.createElement('div');
+                        yearSection.className = 'year-section space-y-8';
+
+                        const yearHeader = document.createElement('h2');
+                        yearHeader.className = 'themed-year-header text-3xl font-bold border-l-4 pl-4';
+                        yearHeader.textContent = yearData.year;
+                        yearSection.appendChild(yearHeader);
+
+                        yearData.months.forEach((monthData) => {
+                            const monthSection = document.createElement('div');
+                            monthSection.className = 'month-section ml-4';
+
+                            const monthHeader = document.createElement('h3');
+                            monthHeader.className = 'themed-month-header text-2xl font-semibold mb-6';
+                            monthHeader.textContent = monthData.name;
+                            monthSection.appendChild(monthHeader);
+                            
+                            const articlesGrid = document.createElement('div');
+                            articlesGrid.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6';
+
+                            monthData.weekly_articles.forEach(articleObject => {
+                                const articleCard = createArticleCard(articleObject);
+                                articlesGrid.appendChild(articleCard);
+                            });
+
+                            monthSection.appendChild(articlesGrid);
+                            yearSection.appendChild(monthSection);
+                        });
+
+                        contentContainer.appendChild(yearSection);
+                    });
+
+                } catch (error) {
+                    console.error("Failed to load articles:", error);
+                    contentContainer.innerHTML = `<p class="text-center themed-error-text">Could not load articles. Please check if 'articles.json' is available and correctly formatted.</p>`;
+                }
+            }
+
+            // Initial load of the articles
+            loadAndDisplayArticles();
+        });
+    </script>
+
+</body>
+</html>
