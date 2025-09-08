@@ -4,13 +4,27 @@
 
 ![82°E logo](./../thumbnails/2025_August_1.jpg "82°E Logo")
 
-82°E is a modern Indian self-care brand, co-founded in 2021 by Bollywood star Deepika Padukone and entrepreneur Jigar Shah. With Mumbai as its headquarters, the brand's name references the Indian standard meridian, underscoring its Indian identity and international aspirations.
+82°E is a modern Indian self-care and skincare brand that officially launched in November 2022. Conceived in the wake of a post-pandemic surge in consumer interest in ingredient transparency and wellness, the company was co-founded by Bollywood actor Deepika Padukone and entrepreneur Jigar Shah. Their shared vision was to create a skincare line that distills elaborate beauty regimens into a streamlined, effective routine—rooted in Indian heritage yet propelled by clinical science.
+
+The brand’s name, 82°E, pays homage to the 82°30′ East meridian that cuts across India, symbolizing a fusion of “modern Indian” sensibilities and scientific innovation. Over two years, the founders assembled a lean team of fewer than 50 professionals at an in-house R&D centre in Bengaluru to formulate, test, and refine their products. This rigorous process involved dermatological studies, consumer trials, and multiple prototype iterations—each personally vetted by Padukone to ensure optimal efficacy, safety, and sensory experience.
+
+In December 2022, 82°E secured its maiden seed funding of $7.5 million led by DSG Consumer Partners and IDEO Ventures, with significant backing from Padukone’s family office. This infusion valued the startup at approximately ₹94 crore and enabled the brand to bring a 12-product portfolio—spanning cleansers, moisturisers, sunscreens, and face masks—to market. By adopting a direct-to-consumer (D2C) model, 82°E maintained complete control over pricing, customer data, and the overall brand experience, laying the groundwork for rapid growth and strong customer relationships.
+
+With its tagline of “self-care powered by science”, 82°E set out to challenge both legacy Indian beauty brands and established global players by offering clinically validated formulas enriched with Ayurvedic botanicals such as ashwagandha and patchouli. The company’s launch marked a pivotal moment in India’s beauty landscape—demonstrating how celebrity influence, when paired with robust product development and a clear brand narrative, can accelerate consumer trust and adoption.
+## Origins and Founding Vision
+After witnessing a post-pandemic surge in consumer focus on ingredients and wellness, Bollywood star Deepika Padukone envisioned a skincare brand that would distill complex regimens into a simple, effective routine. Teaming up with venture capitalist Jigar Shah—her partner both in investment through Ka Enterprises and in entrepreneurial pursuits—Padukone embarked on two years of research and product development at an in-house R&D centre in Bengaluru. In November 2022, 82°E officially launched, its name paying homage to the 82°30′ East meridian that traverses India, encapsulating a modern Indian identity rooted in heritage and scientific innovation.
+
+## Founders’ Background and Early Stage
+Deepika Padukone brought to the table her global personal brand and a deep understanding of storytelling and consumer engagement, while Jigar Shah contributed business acumen, operations expertise, and fundraising prowess. Together, they established a lean organisational structure headquartered in Mumbai employing fewer than 50 people. Initial seed funding of $7.5 million in December 2022—from DSG Consumer Partners, IDEO Ventures, and Padukone’s family office—valued 82°E at roughly ₹94 crore and positioned it for rapid product development and market rollout.
+
+## Product Portfolio and Differentiation
+82°E launched with a 12-product lineup spanning cleansers, moisturisers, sunscreens, and face masks. Flagship offerings included the Ashwagandha Bounce Moisturiser (₹2,700) and Patchouli Glow Sunscreen (₹1,800), which married Ayurvedic botanicals like ashwagandha with clinically validated actives developed by in-house scientists. Every formula underwent extensive dermatological and consumer trials, with Padukone personally vetting prototypes to ensure efficacy and sensory appeal.
+
 
 ## Brand Concept
-- Focuses on simplifying self-care routines.
-- Blends Indian botanical ingredients with scientific innovation.
-- All products are vegan, cruelty-free, and incorporate exclusive extracts indigenous to India.
 
+
+82°E streamlines self-care routines by combining potent Indian botanical extracts with cutting-edge scientific research. All formulations are vegan and cruelty-free, featuring unique, indigenous ingredients sourced from across India.
 ---
 
 # Growth
@@ -110,6 +124,7 @@
 - 82°E stands as a cautionary tale for startups to master brand essentials before relying on hype.
 
 > **Note:** Success in the modern beauty/self-care industry demands far more than star power and capital—core brand and market strategies are non-negotiable.
+
 
 
 
